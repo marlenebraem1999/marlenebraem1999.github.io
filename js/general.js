@@ -1,66 +1,76 @@
+      // When the user scrolls down 20px from the top of the document, show the button
+      window.onscroll = function() {scrollFunction()};
 
-(function($) {
+      function scrollFunction() {
+        if (document.body.scrollTop > 145 || document.documentElement.scrollTop > 145) {
+          document.getElementById("myBtn").style.display = "block";
+        } else {
+          document.getElementById("myBtn").style.display = "none";
+        }
+      }
 
-	$( document ).ready( function() {
+      // When the user clicks on the button, scroll to the top of the document
+      function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }
 
-		/* VIEWPORT FIXES (http://timkadlec.com/2013/01/windows-phone-8-and-device-width/) */
-		if (navigator.userAgent.match(/IEMobile\/10\.0/)) {
-		  var msViewportStyle = document.createElement('style');
-		  msViewportStyle.appendChild(
-		    document.createTextNode(
-		      '@-ms-viewport{width:auto!important}'
-		    )
-		  );
-		  document.querySelector('head').appendChild(msViewportStyle);
-		}
 
-		//javascript code hier
-//colorpicker
-        $(function() {
-	//bg color selector
-  $(".color").click(function(){
-		var color = $(this).attr("data-value");
-    $(".mynameis").css("background-color", color);
-	});
+      //scroll show text 
+$(document).ready(function() {
+    
+  /* Every time the window is scrolled ... */
+  $(window).scroll( function(){
   
-  //add color picker if supported
-  if (Modernizr.inputtypes.color) {
-    $(".picker").css("display", 'inline-block');
-    var c = document.getElementById('colorpicker');
-    c.addEventListener('change', function(e) {
-      //d.innerHTML = c.value;
-      var color = c.value;
-      $(".mynameis").css("background-color", color);
-		}, false);
-  }
+      /* Check the location of each desired element */
+      $('.hideme').each( function(i){
+          console.log("werkt")
+          var bottom_of_object = $(this).position().top + $(this).outerHeight();
+          var bottom_of_window = $(window).scrollTop() + $(window).height();
+          
+          /* If the object is completely visible in the window, fade it it */
+          if( bottom_of_window > bottom_of_object ){
+              
+              $(this).removeClass('hideme');
+              $(this).addClass('showme');
+
+                  
+          }
+          
+      }); 
+  
+  });
+  
 });
-function pickColor() {
-  $("#colorpicker").click();
-};
-        
 
-        
-//size slider
-  $('#fontfield').on('change', function () {
-    var v = $(this).val();
-    $('.name').css('font-size', v + 'px')
-});     
-        
-// directe input
-       $(document).ready(function(){
-    $("#namefield").keyup(function(){
-        // Getting the current value of textarea
-        var currentText = $(this).val();
-        
-        // Setting the Div content
-        $(".name").text(currentText);
-    });
+//scroll down arrow
+$(function() {
+$('a[href*=#]').on('click', function(e) {
+  e.preventDefault();
+  $('html, body').animate({ scrollTop: $($(this).attr('href')).offset().top}, 500, 'linear');
 });
-        
+});
 
-//reset met reload page in button
 
-        
-	} );
+//popup cv
+// Get the modal
+var modal = document.getElementById("myModal");
 
-})(jQuery);
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+var img = document.getElementById("myImg");
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+img.onclick = function(){
+modal.style.display = "block";
+modalImg.src = this.src;
+captionText.innerHTML = this.alt;
+}
+
+// Get the <span> element that closes the modal
+var span = document.getElementsByClassName("close")[0];
+
+// When the user clicks on <span> (x), close the modal
+span.onclick = function() { 
+modal.style.display = "none";
+}
+   
